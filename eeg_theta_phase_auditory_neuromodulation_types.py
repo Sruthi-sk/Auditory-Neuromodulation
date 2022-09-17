@@ -85,10 +85,7 @@ data = board.get_current_board_data (256) # get latest 256 samples or less, does
 
 #continuous tone
 # pygame.mixer.init()
-# pygame.mixer.music.load(r"C:\Users\ws4\Documents\Sruthi_JRF\IITG\440Hz.wav") # 30s file
-# pygame.mixer.music.load(r"C:\Users\ws4\Documents\Sruthi_JRF\IITG\sound\pink_noise.mp3") # 30s file
-# pygame.mixer.music.load(r"C:\Users\ws4\Documents\Sruthi_JRF\IITG\sound\white_noise.mp3") # 30s file
-# pygame.mixer.music.load(r"C:\Users\ws4\Documents\Sruthi_JRF\IITG\sound\al-andalus.mp3") # 30s file
+# pygame.mixer.music.load(r"440Hz.wav") # 30s file
 # pygame.mixer.music.set_volume(0)
 
 # pygame.mixer.music.unload()
