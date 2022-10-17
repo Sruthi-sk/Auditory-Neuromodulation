@@ -49,7 +49,8 @@ from matplotlib.animation import FuncAnimation
 # import winsound
 
 import os
-os.chdir('C:/Users/ws4/Documents/Sruthi_JRF/neuromodulation/IITG/')
+nm_folder = './auditory_nm'
+os.chdir(nm_folder)
 
 
 #%% Connect to brainflow
@@ -201,8 +202,8 @@ time_stim = 4  # insert marker 555 before stim and after
 time_pre = 2  # insert marker 111 before pre
 time_post = 2 # insert marker 333 after post
 time_inter_stim = 3
-n_trains = 1
-n_trials = 2 # in 1 train of same audio file
+n_trains = 5
+n_trials = 5 # in 1 train of same audio file
 
 count = 0 # to count no of times we call from buffer - atleast (sf/mini_window) times per sec to avoid missing data 
         # - that many unique non-overlapping segments 
@@ -319,8 +320,6 @@ print(" no of buffer calls ",count)
 # print('per second, no of buffer calls should be atleast (if the delay after detecting phase not there): ', int(sf/mini_window),
 #       ' and we have :',int(count/time_stim), ' calls per sec')
 print(" no of phase zero markers ",phase_markers,len(sound_markers))
-print(" max no of phase zero markers assuming theta=8, 8*stim_time : ",8*time_stim)
-print('max freq of person ',phase_markers/time_stim,'??')
 
 
 #%%
@@ -339,9 +338,7 @@ df.iloc[sound_markers,:] #- verify that markers have been recorded in marker_ch
 #%%
 import datetime
 paths = r"eeg_nm_data/"
-fname = 'complete_paradigm_aiswarya_'+str(datetime.date.today())
-
-# fname = 'piano_paradigm_270822'
+fname = 'complete_paradigm_'+str(datetime.date.today())
 
 df.to_csv(paths+'eeg_'+fname+'.csv')
 
@@ -350,7 +347,7 @@ print("sound markers : ",sound_markers) #_ecg
 soundfile = paths+'soundmarkers_'+fname+'.pkl'
 joblib.dump(sound_markers,soundfile)
 
-# r=joblib.load('D:/CCS_Users/sruthi/ecg/'+'responses.pkl')
+# r=joblib.load('./responses.pkl')
 
 
 #%%
@@ -377,7 +374,6 @@ pmin, pmax = signals.min(), signals.max()
 #%% edf
 ''' 
 While saving edf file
-#C:/Users\domainInt1\.conda\envs\spyder-cf-52\lib\site-packages\pyedflib\edfwriter.py:99: 
 #UserWarning: Physical minimum for channel 15 (CH_15) is 1019.4206211152036, which has 18 chars, 
 #however, EDF+ can only save 8 chars, will be truncated to 1019.420, some loss of precision is to be expected.
 '''
