@@ -7,7 +7,7 @@ Created on Tue Aug 23 15:34:18 2022
 
 """
 From commandline,
-python neuromodulation_coral_060922.py --channel=2
+python eeg_theta_phase_auditory_neuromodulation_types.py.py --channel=2
 
 Algorithm
 
@@ -32,6 +32,9 @@ https://www.pygame.org/docs/ref/music.html#pygame.mixer.music.load
 
 Check time as (2s prestim + 4s stim + 2s poststim + 3s interstim) * 2 trials * 3 audio files 
 Check where file gets saved
+
+
+Change because this code uses the old brainflow API for bandpass filter- center freq, bandwidth
 """
 
 #%% import libs
@@ -103,11 +106,6 @@ def findphaseidx(win_data):
     phase_all = np.angle(analytic_signal)
     # plt.plot(win_data)
     # plt.plot(phase_all)
-    # instantaneous_phase = np.unwrap(np.angle(analytic_signal))
-    # instantaneous_frequency = (np.diff(instantaneous_phase) /
-    #                        (2.0*np.pi) * sf)
-    # plt.plot(instantaneous_frequency)
-    # print()
     phase1 = np.round_(phase_all,1)
     
     #checking when phase=0 by checking when it moves from -ve to +ve
@@ -144,10 +142,6 @@ time_pre = 2  # insert marker 111 before pre
 time_post = 2 # insert marker 333 after post
 time_inter_stim = 3
 n_trials = 2  
-# ------------(one more loop) trains of 5 different auditory stimuli types 
-        # (auditory pulses, amplitude modulation of pure tones, amplitude modulation of white noise, 
-        #  amplitude modulation of pink noise or amplitude modulation of music clip)
-#----- 100 stim per subject
 
 count = 0 # to count no of times we call from buffer - atleast (sf/mini_window) times per sec to avoid missing data 
         # - that many unique non-overlapping segments 
@@ -201,7 +195,7 @@ for repeat in range(1):
                 window_data = board.get_current_board_data(window_size)[channel]
                 count+=1
                 DataFilter.detrend(window_data, DetrendOperations.CONSTANT.value)
-                DataFilter.perform_bandpass(window_data, sampling_rate, 6.0, 4.0, 2,FilterTypes.BUTTERWORTH.value, 0)
+                DataFilter.perform_bandpass(window_data, sampling_rate, 6.0, 4.0, 2,FilterTypes.BUTTERWORTH.value, 0)  
                 DataFilter.perform_bandstop(window_data, sampling_rate, 50.0, 4.0, 2,FilterTypes.BUTTERWORTH.value, 0)
         
                 # produce sound if phase 0 present in mini_window
