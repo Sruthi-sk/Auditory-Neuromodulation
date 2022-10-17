@@ -1,0 +1,14 @@
+
+New environment
+conda create -n muse_env -c conda-forge spyder
+conda activate muse_env
+conda install -c anaconda pandas
+pip install brainflow
+conda install -c conda-forge matplotlib
+pip install pygame
+
+# conda install scipy  #conda remove --force numpy, scipy  ---- DLL issues
+pip install scipy
+conda install -c anaconda joblib
+
+conda install -c conda-forge pyedflib
